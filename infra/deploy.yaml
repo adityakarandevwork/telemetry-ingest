@@ -1,0 +1,25 @@
+# Illustrative only: not a real deployment.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: telemetry-ingest
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: telemetry-ingest}
+  template:
+    metadata:
+      labels: {app: telemetry-ingest}
+    spec:
+      containers:
+        - name: telemetry-ingest
+          image: telemetry-ingest:0.1.0
+          ports: [{containerPort: 8080}]
+          env:
+            - name: TELEMETRY_API_KEYS
+              valueFrom:
+                secretKeyRef: {name: telemetry-ingest-keys, key: api-keys}
+          volumeMounts: [{name: data, mountPath: /data}]
+      volumes:
+        - name: data
+          emptyDir: {}
