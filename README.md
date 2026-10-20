@@ -2,7 +2,7 @@
 
 A tiny Python 3.12 service that receives robot telemetry events over HTTP,
 validates them, deduplicates by `event_id` (idempotency), and appends them to a
-local JSONL store.
+local JSONL store. ok
 
 ## Run
 
